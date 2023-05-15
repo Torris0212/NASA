@@ -2,8 +2,6 @@ import fs from 'fs';
 import { parse } from 'csv-parse';
 import path from 'path';
 
-import { getAllPlanets } from '../routes/planets/planets.controller.js';
-
 export const planets = [];
 
 const isHabitablePlanet = (planet) => {
@@ -11,10 +9,6 @@ const isHabitablePlanet = (planet) => {
     && planet['koi_insol'] > 0.36 && planet['koi_insol'] < 1.11
     && planet['koi_prad'] < 1.6;
 };
-
-// const savePlanet = (planet) => {
-//   planets.push(planet);
-// };
 
 export const loadPlanetsData = () => {
   return new Promise((resolve, reject) => {
