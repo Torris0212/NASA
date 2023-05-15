@@ -34,3 +34,5 @@ export const loadPlanetsData = () => {
       });
   })
 };
+
+export const getAllPlanets = () => planets;

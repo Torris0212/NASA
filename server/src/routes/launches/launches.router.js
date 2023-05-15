@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { getAllLaunches } from './launches.controller.js';
+import { httpGetAllLaunches } from './launches.controller.js';
 
 const launchesRouter = Router();
 
-launchesRouter.get('/launches', getAllLaunches)
+launchesRouter.get('/launches', httpGetAllLaunches)
 
 export default launchesRouter;
