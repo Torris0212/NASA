@@ -29,3 +29,16 @@ export const addNewLaunch = (launch) => {
     })
   );
 }
+
+export const existsLaunchWithId = (launchId) => {
+  return launches.has(launchId);
+}
+
+export const abortLaunchById = (launchId) => {
+  const aborted = launches.get(launchId);
+
+  aborted.upcoming = false;
+  aborted.success = false;
+
+  return aborted;
+}
