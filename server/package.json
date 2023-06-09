@@ -7,14 +7,15 @@
   "scripts": {
     "watch": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test-watch": "jest --watch",
     "cluster": "pm2 start src/index.js -i max"
   },
   "jest": {
     "transform": {
       "^.+\\.[t|j]sx?$": "babel-jest"
-    }
+    },
+    "testEnvironment": "node"
   },
   "author": "Torris Jin",
   "license": "ISC",
