@@ -1,35 +1,44 @@
-// import launches from './launches.mongo.js';
+import launches from './launches.mongo.js';
+import planets from './planets.mongo.js';
 
-export const launches = new Map();
+const DEFAULT_FLIGHT_NUMBER = 100;
 
-let flightNumber = 100;
+export const getAllLaunches = async () => await launches.find({}, {'_id': 0, '__v': 0});
 
-const launch = {
-  flightNumber: 100,
-  mission: 'Kepler Exploration',
-  rocket: 'Explorer IS1',
-  launchDate: new Date('December 27, 2030'),
-  destination: 'Kepler-442 b',
-  customers: ['ZTM', 'NASA'],
-  upcoming: true,
-  success: true,
+export const saveLaunch = async (launch) => {
+  // findOne returns object. find returns list of ducuments
+  const planet = await planets.findOne({
+    keplerName: launch.destination
+  })
+
+  if (!planet) {
+    throw new Error("No matching planet was found");
+  }
+
+  await launches.findOneAndUpdate({
+    flightNumber: launch.flightNumber
+  }, launch, {
+    upsert: true
+  })
 }
 
-launches.set(launch.flightNumber, launch);
+const getLatestFlightNumber = async () => {
+  const latestLaunch = await launches.findOne().sort('-flightNumber') ?? DEFAULT_FLIGHT_NUMBER;
 
-export const getAllLaunches = () => Array.from(launches.values());
+  return latestLaunch.flightNumber;
+}
 
-export const addNewLaunch = (launch) => {
-  flightNumber++;
-  launches.set(
-    flightNumber,
-    Object.assign(launch, {
-      success: true,
-      upcoming: true,
-      customers: ['ZTM', 'NASA'],
-      flightNumber
-    })
-  );
+export const scheduleNewLaunch = async (launch) => {
+  const newFlightNumber = await getLatestFlightNumber();
+
+  const newLaunch = Object.assign(launch, {
+    success: true,
+    upcoming: true,
+    customers: ['Zero to Mastery', 'NASA'],
+    flightNumber: newFlightNumber + 1
+  });
+
+  await saveLaunch(newLaunch);
 }
 
 export const existsLaunchWithId = (launchId) => {

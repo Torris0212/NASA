@@ -1,10 +1,10 @@
-import { getAllLaunches, addNewLaunch, existsLaunchWithId, abortLaunchById } from "../../models/launches.model.js";
+import { getAllLaunches, scheduleNewLaunch, existsLaunchWithId, abortLaunchById } from "../../models/launches.model.js";
 
-export const httpGetAllLaunches = (req, res) => {
-  return res.status(200).json(getAllLaunches());
+export const httpGetAllLaunches = async (req, res) => {
+  return res.status(200).json(await getAllLaunches());
 };
 
-export const httpAddNewLaunch = (req, res) => {
+export const httpAddNewLaunch = async (req, res) => {
   const launch = req.body;
 
   if (!launch.mission || !launch.rocket || !launch.destination || !launch.launchDate) {
@@ -17,7 +17,8 @@ export const httpAddNewLaunch = (req, res) => {
     return res.status(400).json({ error: 'Invalid launch date' });
   };
 
-  addNewLaunch(launch);
+  await scheduleNewLaunch(launch);
+
   return res.status(201).json(launch)
 };
 
