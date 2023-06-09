@@ -41,15 +41,14 @@ export const scheduleNewLaunch = async (launch) => {
   await saveLaunch(newLaunch);
 }
 
-export const existsLaunchWithId = (launchId) => {
-  return launches.has(launchId);
+export const existsLaunchWithId = async (launchId) => {
+  return await launches.findOne({ flightNumber: launchId });
 }
 
-export const abortLaunchById = (launchId) => {
-  const aborted = launches.get(launchId);
-
-  aborted.upcoming = false;
-  aborted.success = false;
-
-  return aborted;
+export const abortLaunchById = async (launchId) => {
+  return await launches.updateOne({
+    flightNumber: launchId}, {
+      upcoming: false,
+      success: false,
+    });
 }
