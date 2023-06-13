@@ -76,7 +76,7 @@ export const getAllLaunches = async (limit, skip) => {
 };
 
 const getLatestFlightNumber = async () => {
-  const latestLaunch = await findLaunch().sort('-flightNumber') ?? DEFAULT_FLIGHT_NUMBER;
+  const latestLaunch = await launchesDatabase.findOne().sort('-flightNumber') ?? DEFAULT_FLIGHT_NUMBER;
 
   return latestLaunch.flightNumber;
 }

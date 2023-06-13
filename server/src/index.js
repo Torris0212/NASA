@@ -1,4 +1,7 @@
 import http from 'http';
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { loadPlanetsData } from './models/planets.model.js';
 import { loadLaunchesData } from './models/launches.model.js';
 import { mongoConnect } from './services/mongo.js';
