@@ -1,7 +1,10 @@
 import { getAllLaunches, scheduleNewLaunch, existsLaunchWithId, abortLaunchById } from "../../models/launches.model.js";
+import { getPagination } from '../../services/query.js';
 
 export const httpGetAllLaunches = async (req, res) => {
-  return res.status(200).json(await getAllLaunches());
+  const { limit, skip } = getPagination(req.query);
+
+  return res.status(200).json(await getAllLaunches(limit, skip));
 };
 
 export const httpAddNewLaunch = async (req, res) => {
