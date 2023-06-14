@@ -92,7 +92,7 @@ export const scheduleNewLaunch = async (launch) => {
   }
 
   const newFlightNumber = await getLatestFlightNumber();
-
+  console.log('11111111111111111111111111' + newFlightNumber);
   const newLaunch = Object.assign(launch, {
     success: true,
     upcoming: true,
