@@ -2,30 +2,28 @@ name: NASA Project CI
 on:
   push:
     branches: [ main ]
-  pull_request: 
+  pull_request:
     branches: [ main ]
-jobs: 
+jobs:
   build:
     env:
       CI: true
+      MONGO_URL: mongodb://localhost/nasa
     strategy:
-      matrix: 
+      matrix:
         node-version: [16.x, 18.x]
         mongodb-version: ['6.0']
     runs-on: ubuntu-latest
     steps:
-      - name: Git checout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-        with: 
+        with:
           node-version: ${{ matrix.node-version }}
       - name: Use MongoDB from GitHub actions
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
-      - run: npm install --prefix client
-      - run: npm install --prefix server
       - run: npm run build --prefix client
       - run: npm test
