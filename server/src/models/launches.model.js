@@ -77,7 +77,7 @@ export const getAllLaunches = async (limit, skip) => {
 
 const getLatestFlightNumber = async () => {
   const latestLaunch = await launchesDatabase.findOne().sort('-flightNumber') ?? DEFAULT_FLIGHT_NUMBER;
-  console.log('11111111111111111111111111' + latestLaunch);
+
   return Number(latestLaunch.flightNumber);
 }
 
@@ -91,8 +91,8 @@ export const scheduleNewLaunch = async (launch) => {
     throw new Error("No matching planet was found");
   }
 
-  const newFlightNumber = await getLatestFlightNumber();
-
+  const newFlightNumber = await getLatestFlightNumber() ?? DEFAULT_FLIGHT_NUMBER;
+  console.log('11111111111111111111111111' + newFlightNumber);
   const newLaunch = Object.assign(launch, {
     success: true,
     upcoming: true,
