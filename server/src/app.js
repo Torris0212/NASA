@@ -9,7 +9,7 @@ import launchesRouter from './routes/launches/launches.router.js';
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: ['http://localhost:3000', 'http://18.118.138.183:3000']
 }));
 app.use(morgan('combined'));
 app.use(express.static(path.resolve('../server/public')));

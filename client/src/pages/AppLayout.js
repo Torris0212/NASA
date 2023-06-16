@@ -53,6 +53,7 @@ const AppLayout = props => {
   
   return <div className={classes.content}>
     <Header onNav={animateFrame} />
+    <h1>hello world</h1>
     <Centered className={classes.centered}>
       <Frame animate 
         show={frameVisible} 
