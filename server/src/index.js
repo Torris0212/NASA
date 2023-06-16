@@ -7,7 +7,7 @@ import { loadLaunchesData } from './models/launches.model.js';
 import { mongoConnect } from './services/mongo.js';
 import app from './app.js';
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8005;
 
 const server = http.createServer(app);
 
